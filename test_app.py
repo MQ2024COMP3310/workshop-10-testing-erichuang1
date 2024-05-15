@@ -35,7 +35,7 @@ class TestWebApp(unittest.TestCase):
         assert response.status_code == 200
 
     def test_no_access_to_profile(self):
-        # TODO: Check that non-logged-in user should be redirected to /login
+        # TO-DO: Check that non-logged-in user should be redirected to /login
         response = self.client.get('/profile')
         assert response.status_code == 302
         self.assertIn('/login', response.location)
@@ -88,7 +88,7 @@ class TestWebApp(unittest.TestCase):
         # assert User.query throws exception
 
     def test_xss_vulnerability(self):
-        # TODO: Can we store javascript tags in the username field?
+        # TO-DO: Can we store javascript tags in the username field?
         response = self.client.post('/signup', data={
             'email': 'user@test.com',
             'name': '<script> alert("Hello");</script>',
@@ -96,7 +96,7 @@ class TestWebApp(unittest.TestCase):
         }, follow_redirects=True)
 
         html = response.get_data(as_text=True)
-        assert not '<script>' in html
+        assert '<script>' not in html
 
         # Example Answer
         # # create a user and perform the javascript injection
